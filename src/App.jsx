@@ -5,7 +5,7 @@ function App() {
   return (
     <>
      <div className='flex flex-col items-center w-screen'>
-      <h1 className='font-Inter '>Weather Above Ground</h1>
+      <h1 className='font-black '>Weather Above Ground</h1>
       <Fetcher />
     <WeatherCard/>
     </div>

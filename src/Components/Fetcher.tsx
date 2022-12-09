@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {Suspense, useEffect, useState} from "react";
 import axios from 'axios';
 import WeatherCard from './WeatherCard.tsx';
 
@@ -10,15 +10,10 @@ interface SearchProps{
 
 const Fetcher =({ value, }: SearchProps): JSX.Element =>{
     const [location, setLocation] = useState(value);
-    const [locationData, setLocationData] = useState();
-    const [weatherCoordinates, setWeatherCoordinates] = useState();
-    const [weatherData, setWeatherData] = useState();
-    const locationClient = axios.create({
-        baseURL: "https://dev.virtualearth.net/REST/v1/Locations/US/" 
-    });
-    const weatherClient = axios.create({
-        baseURL: "https://api.weather.gov/" 
-    });
+    const [locationData, setLocationData] = useState<any>();
+    const [weatherCoordinates, setWeatherCoordinates] = useState<any>();
+    const [weatherData, setWeatherData] = useState<any>();
+    const [url, setUrl] = useState<string>(`https://dev.virtualearth.net/REST/v1/Locations/US`);
 
     const handleOnchage =(value: string) => {
         setLocation(value);
@@ -27,8 +22,10 @@ const Fetcher =({ value, }: SearchProps): JSX.Element =>{
 useEffect(() => {
     async function fetchLocation (){
         // try{
-        const locationResult = await axios.get(`https://dev.virtualearth.net/REST/v1/Locations/US/${location}?key=Atfcn0UhB-AMxmeAPpbwnFAkzRWeHukpBnAR7Jr7J5-fySVv1N_J-VAEU69whXfa`,);
+        const locationResult = await axios.get(url,);
+        
             setLocationData(locationResult.data.resourceSets[0].resources[0].point.coordinates);
+      
         // }catch(error) {
         //         if (error.response) {
         //           // The request was made and the server responded with a status code
@@ -38,13 +35,14 @@ useEffect(() => {
         //           console.log(error.response.headers);
                   
         //         }
+        console.log(url);
         console.log(locationData, "first");
    // }
     };
 
    
     fetchLocation();
-  }, [location]);
+  }, [url]);
 
   useEffect(() => {
     async function fetchWeatherCoordinates() {
@@ -93,14 +91,23 @@ useEffect(() => {
 
  return(
     <>
-<form className="">
+    <div className="flex flex-row">
+<form>
 <input className="rounded-3xl bg-white shadow-md p-2 m-4 border-2 border-black" 
- type="search" 
+ type="text" 
  value={location} 
  onChange={({ target }) => handleOnchage(target.value)} 
  placeholder="Enter zip code" />
 </form>
+<button type="submit" className="rounded-3xl border-2 border-black p-2 m-4"
+onClick={()=>{setUrl(`https://dev.virtualearth.net/REST/v1/Locations/US/${location}?key=Atfcn0UhB-AMxmeAPpbwnFAkzRWeHukpBnAR7Jr7J5-fySVv1N_J-VAEU69whXfa`)}}
+>Search</button>
+</div>
+{weatherData ?(
+ <div className='flex items-center flex-col rounded-3xl bg-white p-4 shadow-md w-1/4 h-1/4 font-Inter border-2 border-black'>
 <WeatherCard name={weatherData[0].name} shortForecast={weatherData[0].shortForecast} temperature={weatherData[0].temperature} temperatureUnit={weatherData[0].temperatureUnit} icon={weatherData[0].icon}/>
+</div>
+):(null)}
 </>
  )
 
