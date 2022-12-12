@@ -1,7 +1,7 @@
 import React, {Suspense, useEffect, useState} from "react";
 import axios from 'axios';
 import WeatherCard from './WeatherCard.tsx';
-
+import useDataFetch from './UseDataFetch.tsx'
 interface SearchProps{
     value: string;
 
@@ -10,39 +10,16 @@ interface SearchProps{
 
 const Fetcher =({ value, }: SearchProps): JSX.Element =>{
     const [location, setLocation] = useState(value);
-    const [locationData, setLocationData] = useState<any>();
+    const [{locationData, url}, setUrl] = useDataFetch();
     const [weatherCoordinates, setWeatherCoordinates] = useState<any>();
     const [weatherData, setWeatherData] = useState<any>();
-    const [url, setUrl] = useState<string>(`https://dev.virtualearth.net/REST/v1/Locations/US`);
+
 
     const handleOnchage =(value: string) => {
         setLocation(value);
     }
 
-useEffect(() => {
-    async function fetchLocation (){
-        // try{
-        const locationResult = await axios.get(url,);
-        
-            setLocationData(locationResult.data.resourceSets[0].resources[0].point.coordinates);
-      
-        // }catch(error) {
-        //         if (error.response) {
-        //           // The request was made and the server responded with a status code
-        //           // that falls out of the range of 2xx
-        //           console.log(error.response.data);
-        //           console.log(error.response.status);
-        //           console.log(error.response.headers);
-                  
-        //         }
-        console.log(url);
-        console.log(locationData, "first");
-   // }
-    };
 
-   
-    fetchLocation();
-  }, [url]);
 
   useEffect(() => {
     async function fetchWeatherCoordinates() {
