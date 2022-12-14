@@ -13,7 +13,8 @@ const Fetcher =({ value, }: SearchProps): JSX.Element =>{
     const [{locationData, url}, setUrl] = useDataFetch();
     const [weatherCoordinates, setWeatherCoordinates] = useState<any>();
     const [weatherData, setWeatherData] = useState<any>();
-
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     const handleOnchage =(value: string) => {
         setLocation(value);
@@ -46,20 +47,25 @@ const Fetcher =({ value, }: SearchProps): JSX.Element =>{
 
   useEffect(() => {
     async function fetchWeather() {
-        // try{
+        try{
+            setIsLoading(true);
+            setIsError(false);
         const weatherResult = await axios.get(`${weatherCoordinates}`,);
         setWeatherData(weatherResult.data.properties.periods);
-    // }catch(error) {
-    //     if (error.response) {
-    //       // The request was made and the server responded with a status code
-    //       // that falls out of the range of 2xx
-    //       console.log(error.response.data);
-    //       console.log(error.response.status);
-    //       console.log(error.response.headers);
+    }catch(error) {
+        if (error.response) {
+            setIsLoading(false);
+            setIsError(true);
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
           
-    //     }
+        }
         console.log(weatherData, "third");
-    // } 
+    } 
+    setIsLoading(false);
     };
 
    
@@ -82,6 +88,8 @@ onClick={()=>{setUrl(`https://dev.virtualearth.net/REST/v1/Locations/US/${locati
 </div>
 {weatherData ?(
  <div className='flex items-center flex-col rounded-3xl bg-white p-4 shadow-md w-1/4 h-1/4 font-Inter border-2 border-black'>
+    {isLoading && <p>Loading....</p>}
+    {isError  && <p>something went wrong</p>}
 <WeatherCard name={weatherData[0].name} shortForecast={weatherData[0].shortForecast} temperature={weatherData[0].temperature} temperatureUnit={weatherData[0].temperatureUnit} icon={weatherData[0].icon}/>
 </div>
 ):(null)}
