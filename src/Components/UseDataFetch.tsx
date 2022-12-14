@@ -7,23 +7,11 @@ function useDataFetch(){
 
     useEffect(() => {
         async function fetchLocation (){
-            // try{
             const locationResult = await axios.get(url,);
-            
-                setLocationData(locationResult.data.resourceSets[0].resources[0].point.coordinates);
-          
-            // }catch(error) {
-            //         if (error.response) {
-            //           // The request was made and the server responded with a status code
-            //           // that falls out of the range of 2xx
-            //           console.log(error.response.data);
-            //           console.log(error.response.status);
-            //           console.log(error.response.headers);
-                      
-            //         }
+            setLocationData(locationResult.data.resourceSets[0].resources[0].point.coordinates);
             console.log(url);
             console.log(locationData, "first");
-       // }
+ 
         };
     
        

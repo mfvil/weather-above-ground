@@ -24,20 +24,10 @@ const Fetcher =({ value, }: SearchProps): JSX.Element =>{
 
   useEffect(() => {
     async function fetchWeatherCoordinates() {
-        // try{
         const weatherCoordinatesResult = await axios.get(`https://api.weather.gov/points/${locationData}`,);
         setWeatherCoordinates(weatherCoordinatesResult.data.properties.forecast);
-    // }catch(error) {
-    //     if (error.response) {
-    //       // The request was made and the server responded with a status code
-    //       // that falls out of the range of 2xx
-    //       console.log(error.response.data);
-    //       console.log(error.response.status);
-    //       console.log(error.response.headers);
-          
-    //     }
         console.log(weatherCoordinates, "second");
-    // } 
+
     };
 
    
