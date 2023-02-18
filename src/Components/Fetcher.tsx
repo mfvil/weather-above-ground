@@ -10,7 +10,7 @@ interface SearchProps{
 
 const Fetcher =({ value, }: SearchProps): JSX.Element =>{
     const [location, setLocation] = useState(value);
-    const [{locationData, url}, setUrl] = useDataFetch();
+    const [{locationData}, setUrl] = useDataFetch();
     const [weatherCoordinates, setWeatherCoordinates] = useState<any>();
     const [weatherData, setWeatherData] = useState<any>();
     const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,7 @@ const Fetcher =({ value, }: SearchProps): JSX.Element =>{
 
    
     fetchWeatherCoordinates();
-  }, [locationData]);
+  }, [locationData, weatherCoordinates]);
 
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const Fetcher =({ value, }: SearchProps): JSX.Element =>{
 
    
     fetchWeather();
-  }, [locationData]); 
+  }, [locationData, weatherCoordinates, weatherData]); 
 
  return(
     <>

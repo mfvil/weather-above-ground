@@ -16,7 +16,7 @@ function useDataFetch(){
     
        
         fetchLocation();
-      }, [url]);
+      },[url]);
     return[{locationData, url}, setUrl]
 }
 export default useDataFetch;
