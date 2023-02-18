@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  margin: 0;
+
+  @apply bg-darkPurple;
+  @apply text-white;
+  margin-top: 12rem;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

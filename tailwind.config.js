@@ -5,7 +5,14 @@ module.exports = {
     "app.js",
   ],
   theme: {
-    extend: {},
+    extend: {  
+      colors: {
+        darkPurple: '#45278B',
+        greyish: '#EBEBF5',
+        bluish: '#2E335A',
+        lightPurple: '#48319D',
+    },
+  },
   },
   plugins: [],
 }

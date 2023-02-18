@@ -11,12 +11,12 @@ export interface WeatherProps{
 const WeatherCard = ({name, shortForecast, temperature, temperatureUnit, icon}:WeatherProps): JSX.Element =>
       
               <>
-              <h2>{name} </h2>
+              <h2 className='text-xl m-4'>{name} </h2>
               <div className='flex items-center flex-row'>
                      <div className='flex items-center flex-col mx-3'>
                             <img src={icon}/>
-                            <p>{temperature} {temperatureUnit}</p>
-                            <p>{shortForecast}</p>
+                            <p className='text-xl'>{temperature} {temperatureUnit}</p>
+                            <p className='text-xl'>{shortForecast}</p>
                      </div>
    
               </div>

@@ -66,18 +66,18 @@ const Fetcher =({ value, }: SearchProps): JSX.Element =>{
     <>
     <div className="flex flex-row">
 <form>
-<input className="rounded-3xl bg-white shadow-md p-2 m-4 border-2 border-black" 
+<input className="rounded-3xl bg-white shadow-md p-5 m-4 border-1 border-greyish border-bluish shadow-md text-greyish bg-bluish" 
  type="text" 
  value={location} 
  onChange={({ target }) => handleOnchage(target.value)} 
  placeholder="Enter zip code" />
 </form>
-<button type="submit" className="rounded-3xl border-2 border-black p-2 m-4"
+<button type="submit" className="rounded-3xl p-5 m-4 text-greyish bg-bluish border-1 border-greyish shadow-md"
 onClick={()=>{setUrl(`https://dev.virtualearth.net/REST/v1/Locations/US/${location}?key=Atfcn0UhB-AMxmeAPpbwnFAkzRWeHukpBnAR7Jr7J5-fySVv1N_J-VAEU69whXfa`)}}
 >Search</button>
 </div>
 {weatherData ?(
- <div className='flex items-center flex-col rounded-3xl bg-white p-4 shadow-md w-1/4 h-1/4 font-Inter border-2 border-black'>
+ <div className='flex items-center flex-col rounded-3xl p-4 shadow-md w-1/4 h-1/4 font-Inter bg-lightPurple'>
     {isLoading && <p>Loading....</p>}
     {isError  && <p>something went wrong</p>}
 <WeatherCard name={weatherData[0].name} shortForecast={weatherData[0].shortForecast} temperature={weatherData[0].temperature} temperatureUnit={weatherData[0].temperatureUnit} icon={weatherData[0].icon}/>
