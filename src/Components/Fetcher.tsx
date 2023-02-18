@@ -78,7 +78,6 @@ onClick={()=>{setUrl(`https://dev.virtualearth.net/REST/v1/Locations/US/${locati
 </div>
 {weatherData ?(
  <div className='flex items-center flex-col rounded-3xl p-4 shadow-md w-1/4 h-1/4 font-Inter bg-lightPurple'>
-    {isLoading && <p>Loading....</p>}
     {isError  && <p>something went wrong</p>}
 <WeatherCard name={weatherData[0].name} shortForecast={weatherData[0].shortForecast} temperature={weatherData[0].temperature} temperatureUnit={weatherData[0].temperatureUnit} icon={weatherData[0].icon}/>
 </div>
